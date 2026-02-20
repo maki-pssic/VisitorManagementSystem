@@ -1,0 +1,94 @@
+@import './base.css';
+
+/* 1. Global Scaling (The "Zoom" Fix) */
+:root {
+  font-size: 16px;
+}
+
+@media screen and (max-width: 1536px) {
+  :root {
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 1366px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  :root {
+    font-size: 13px;
+  }
+}
+
+/* Fix for Landscape Mode on Phones (short screens) */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  :root {
+    font-size: 12px; /* Scale everything down further so it fits vertically */
+  }
+}
+
+#app {
+  width: 100%;
+  margin: 0 auto;
+  font-weight: normal;
+  /* Use dvh (Dynamic Viewport Height) to prevent background gaps */
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2. Responsive Layout Fix (Desktop/Laptop) */
+@media (min-width: 1024px) {
+  body {
+    display: block;
+  }
+
+  #app {
+    display: block;
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* 3. Mobile Specific Fixes (iPhone/Android) */
+@media (max-width: 768px) {
+  body {
+    overscroll-behavior-y: none;
+    overflow-x: hidden;
+  }
+
+  #app {
+    /* Use 'safe-area-inset' to prevent Dynamic Island/Home Bar overlapping content */
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+
+  /* CRITICAL: Privacy/Modal Fix */
+  .privacy-container, .modal-content, .form-container {
+    width: 92% !important; /* Slightly narrower to show background on sides */
+    max-width: 500px !important;
+    height: auto !important;
+    /* Use 75dvh to ensure the 'Agree' button is never cut off by Safari bars */
+    max-height: 75dvh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    margin: auto;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    border-radius: 16px;
+    background: white;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+}
+
+/* Links */
+a, .green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
